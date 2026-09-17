@@ -9,7 +9,7 @@ export const load = async ({ locals, url }) => {
 	const fromStripe = url.searchParams.get('from_stripe') === 'yes';
 
 	const username = locals.user.name;
-	const customerId = locals.user.googleId;
+	const customerId = locals.user.id;
 
 	const db = await getDb();
 
@@ -42,5 +42,10 @@ export const load = async ({ locals, url }) => {
 		};
 	} catch (e) {
 		console.log(e);
+		return {
+			orders: [],
+			username,
+			fromStripe
+		};
 	}
 };
