@@ -8,7 +8,7 @@
 	</div>
 	<div class="flex-none">
 		<div class="dropdown dropdown-end">
-			<div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+			<div tabindex="0" role="button" class="btn btn-circle btn-ghost">
 				<div class="indicator">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -24,21 +24,21 @@
 							d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
 						/>
 					</svg>
-					<span class="badge badge-sm indicator-item">8</span>
+					<span class="indicator-item badge badge-sm">8</span>
 				</div>
 			</div>
-			<div tabindex="-1" class="card card-sm dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
+			<div tabindex="-1" class="dropdown-content card z-1 mt-3 w-52 bg-base-100 shadow card-sm">
 				<div class="card-body">
 					<span class="text-lg font-bold">8 Items</span>
 					<span class="text-info">Subtotal: $999</span>
 					<div class="card-actions">
-						<button class="btn btn-primary btn-block">View cart</button>
+						<button class="btn btn-block btn-primary">View cart</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="dropdown dropdown-end">
-			<div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+			<div tabindex="0" role="button" class="btn avatar btn-circle btn-ghost">
 				<div class="w-10 rounded-full">
 					<img
 						alt="Tailwind CSS Navbar component"
@@ -48,10 +48,10 @@
 			</div>
 			<ul
 				tabindex="-1"
-				class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+				class="menu dropdown-content z-1 mt-3 w-52 menu-sm rounded-box bg-base-100 p-2 shadow"
 			>
 				<li>
-					<a href={resolve('/')} class="justify-between">
+					<a href={resolve('/profile')} class="justify-between">
 						Profile
 						<span class="badge">New</span>
 					</a>
