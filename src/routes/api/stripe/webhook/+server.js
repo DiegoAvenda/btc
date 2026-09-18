@@ -1,10 +1,8 @@
 import Stripe from 'stripe';
-import client from '$lib/server/db.js';
+import { getDb } from '$lib/server/db.js';
 import { STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } from '$env/static/private';
 import { json } from '@sveltejs/kit';
-import { notifUser } from '$lib/server/push-subscription';
-
-const adminGoogleId = '100935988500638449773';
+import { ObjectId } from 'mongodb';
 
 const stripe = new Stripe(STRIPE_SECRET_KEY);
 
@@ -21,7 +19,6 @@ export async function POST({ request }) {
 		const charge = event.data.object;
 		const sessionId = charge.id;
 		const customerId = charge.metadata.customerId;
-		const location = JSON.parse(charge.metadata.location);
 		const address = charge.customer_details.address;
 
 		const lineItems = await stripe.checkout.sessions.listLineItems(sessionId);
@@ -32,22 +29,15 @@ export async function POST({ request }) {
 			total: item.amount_total
 		}));
 		const totalPrice = charge.amount_total;
-
+		console.log('all good');
 		try {
-			const mongoClient = await client.connect();
-			const db = mongoClient.db('chucky');
-			const users = db.collection('users');
-			const query = { googleId: customerId };
-			const user = await users.findOne(query);
-			const customerName = user.name;
+			const db = await getDb();
 
 			const orders = db.collection('orders');
 
 			await orders.insertOne({
-				customerId,
-				customerName,
+				customerId: new ObjectId(customerId),
 				address,
-				location,
 				items,
 				totalPrice,
 				createdAt: new Date(),
@@ -55,8 +45,6 @@ export async function POST({ request }) {
 				prepared: false
 			});
 			console.log('orden creada');
-
-			notifUser(adminGoogleId, 'Tienes un nuevo pedido');
 
 			//revalidatePath("/")
 			//return { successMsg: "order created" }

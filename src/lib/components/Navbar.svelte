@@ -59,6 +59,13 @@
 						{/each}
 					{/if}
 					<span class="text-info">Subtotal: ${totalPrice}</span>
+					{#if cart.length > 0}
+						<div class="card-actions">
+							<a href={resolve('/checkout/{totalPrice}')}
+								><button class="btn btn-block btn-primary">Select location</button></a
+							>
+						</div>
+					{/if}
 				</div>
 			</div>
 		</div>
