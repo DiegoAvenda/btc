@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { getDb } from '$lib/server/db.js';
+import { ObjectId } from 'mongodb';
 
 export const load = async ({ locals, url }) => {
 	if (!locals.user) {
@@ -15,10 +16,10 @@ export const load = async ({ locals, url }) => {
 
 	try {
 		const ordersCollection = db.collection('orders');
-		const query = { customerId, delivered: false };
+		const query = { customerId: new ObjectId(customerId), delivered: false };
 		const options = {
 			sort: { createdAt: -1 },
-			projection: { _id: 0 }
+			projection: { _id: 0, customerId: 0 }
 		};
 
 		const rawOrders = await ordersCollection.find(query, options).toArray();
